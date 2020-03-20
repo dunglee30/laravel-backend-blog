@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Post;
 
+
 class CreatePostController extends Controller
 {
     //
@@ -27,8 +28,10 @@ class CreatePostController extends Controller
         $image = null;
         if($file = $request->file('image')){
             $filename = time().'.'.$file->getClientOriginalExtension();
-            $request->image->move(public_path('images'), $filename);
+            // $request->image->move(public_path('images'), $filename);
+            $path = $file->storeAs('', $filename, 'images');
             $image = $filename;
+            // echo $path;
         }
         // echo $image;
         

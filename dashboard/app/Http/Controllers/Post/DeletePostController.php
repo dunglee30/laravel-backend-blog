@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 use App\User;
 use App\Post;
 
+use Storage;
+
 class DeletePostController extends Controller
 {
     //
@@ -18,6 +20,7 @@ class DeletePostController extends Controller
         $post=Post::findorFail($id);
         $user = Auth::user();
         if($post->user_id==$user->id||$user->can('delete')){
+            Storage::disk('images')->delete($post->image);
             $post->delete();
             return redirect::intended('')->with('success', 'Post deleted successfully');
         } else return redirect::intended('')->with('error', 'You dont have permission to delete this post.');

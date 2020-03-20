@@ -54,7 +54,7 @@ class ShowController extends Controller
                     if($post->views==null) $post->views=0;
                     $post->views++;
                     $post->save();
-                    // Event::fire('posts.view', $post);
+                    
                     return view('post.post-detail')->with('post', $post);
                 }
             else return back()->with('error', 'You dont have permission to view this post.');
