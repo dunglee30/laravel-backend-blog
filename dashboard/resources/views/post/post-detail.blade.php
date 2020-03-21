@@ -30,7 +30,7 @@
         <div class="col-xl-auto blog-main">
         @if($post->image!=null)
             <div>
-                <img source="{{ asset('public/images/'.$post->image) }}" height="400", weight="400"></img>
+                <img source="{{ asset('images/'.$post->image) }}" height="400", weight="400"></img>
             </div>
         @endif
             <p> {!! $post->content !!} </p>

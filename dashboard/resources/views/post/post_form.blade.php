@@ -19,6 +19,11 @@
                     {!! $errors->first('title', '<small class="text-danger">:message</small>') !!}
                 </div>
                 <div class="form-group">
+                    <label for="url">URL</label>
+                    <input type="text" class="form-control" id="id_url" name="url" placeholder="Enter URL(Optional)" value="{{ old('url') }}">
+                    {!! $errors->first('title', '<small class="text-danger">:message</small>') !!}
+                </div>
+                <div class="form-group">
                     <label for="image">Upload Image</label>
                     <input type="file" name="image" id="image">
                 </div>

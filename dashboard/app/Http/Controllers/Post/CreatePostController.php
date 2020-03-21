@@ -34,12 +34,13 @@ class CreatePostController extends Controller
             // echo $path;
         }
         // echo $image;
-        
+        if($request->has('url')) $url = Str::slug($request->url);
+        else $url=Str::slug($request->title);
         $post = Post::create([
             'title' =>$request->title,
             'content' => $request->content,
             'image' => $image,
-            'url'=>Str::slug($request->title),
+            'url'=>$url,
             'user_id' => $user->id,
         ]);
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');

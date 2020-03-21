@@ -22,7 +22,11 @@ class EditPostController extends Controller
         if($post->user_id==$user->id||$user->can('edit')){
             $post->title = $request->title;
             $post->content = $request->content;
-            $post->url = Str::slug($request->title);
+
+            if($request->has('url')) $url = Str::slug($request->url);
+                else $url=Str::slug($request->title);
+            
+            $post->url = $url;
             $post->save();
         } else return redirect::intended('')->with('error', 'You dont have permission to edit this post.');
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');
