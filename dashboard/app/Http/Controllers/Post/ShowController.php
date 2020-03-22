@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 use App\User;
 use App\Post;
@@ -20,7 +21,9 @@ class ShowController extends Controller
         
         if(Auth::check()){
             $user=Auth::user();
-            $posts=$user->posts()->where('user_id', $user->id)->get();
+            $posts=Cache::remember('post.'.$user->id, 60*10, function() use ($user){
+                return $user->posts()->where('user_id', $user->id)->get();
+            });
             return view('post.post')->with('posts', $posts);
         }
         else return redirect::intended('login')->withError('You do not have permission to access');
@@ -28,7 +31,9 @@ class ShowController extends Controller
 
     public function indexAll() {
         if(Auth::check()){
-            $posts=Post::all()->sortBy('user_id');
+            $posts=Cache::remember('post.all', 60*10, function() {
+                return Post::all()->sortBy('user_id');
+            });
             return view('post.post')->with('posts', $posts);
         }
         else return redirect::intended('login')->withError('YO do not have permissions to access');
@@ -44,7 +49,9 @@ class ShowController extends Controller
     public function indexPost($url, $id){
         if(Auth::check()){
             $user = Auth::user();
-            $post = Post::findorFail($id);
+            $post = Cache::remember('post.'.$id, 60*5, function() use($user, $id){
+                return Post::findorFail($id);
+            });
             // echo $post->title;
             if(($post->user_id==$user->id)
                 ||$user->can('view')

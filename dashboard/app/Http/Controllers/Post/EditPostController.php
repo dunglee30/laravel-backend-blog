@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class EditPostController extends Controller
 {
@@ -28,6 +29,7 @@ class EditPostController extends Controller
             
             $post->url = $url;
             $post->save();
+            Cache::flush();
         } else return redirect::intended('')->with('error', 'You dont have permission to edit this post.');
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');
         return redirect::intended('')->with('success', 'Post edited successfully');

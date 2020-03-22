@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 use App\User;
 use App\Post;
@@ -42,7 +43,8 @@ class CreatePostController extends Controller
             'image' => $image,
             'url'=>$url,
             'user_id' => $user->id,
-        ]);
+        ]); 
+        Cache::flush();
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');
         return redirect()->intended('')->with('success', 'Post created successfully');
     }
