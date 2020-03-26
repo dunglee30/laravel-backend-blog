@@ -24,8 +24,14 @@ class LoginController extends Controller
         ]);
 
         $credential = $request->only('email', 'password');
-        if(Auth::attempt($credential)){
-            return redirect()->intended('');
-        } else return back()->with('error', 'Email or password are invalid');
+
+        $user = User::where('email', $request->email)->first();
+
+        if($user->email_verified == 1){
+            if(Auth::attempt($credential)){
+                return redirect()->intended('');
+            } 
+        }
+        return back()->with('error', 'Email or password are invalid');
     }
 }

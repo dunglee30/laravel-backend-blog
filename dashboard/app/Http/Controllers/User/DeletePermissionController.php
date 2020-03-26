@@ -18,7 +18,6 @@ class DeletePermissionController extends Controller
 {
     //
     public function __invoke(Request $request, $slug, $id){
-        if(Auth::check()){
             $authUser=Auth::user();
             if($authUser->hasRole('manager')){
                 $user = User::findOrFail($id);
@@ -28,6 +27,5 @@ class DeletePermissionController extends Controller
                 $user->permissions()->detach($permission);
                 return redirect::intended('user\user-list')->with('success', 'Permission update successfully');
             } else return redirect::intended('user\user-list')->with('error', 'Permission denied since you are not manager');
-        } else return redirect::intended('login');
     }
 }

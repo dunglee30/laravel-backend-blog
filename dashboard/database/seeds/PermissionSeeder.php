@@ -1,12 +1,9 @@
 <?php
 
-use App\Role;
-use App\Permission;
-use App\User;
-
 use Illuminate\Database\Seeder;
+use App\Permission;
 
-class UserSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +13,5 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
-
     }
 }

@@ -18,7 +18,6 @@ class AddPermissionController extends Controller
 {
     //
     public function __invoke(Request $request, $id){
-        if(Auth::check()){
             $authUser = Auth::user();
             if($authUser->can('manage')||$authUser->hasRole('manager')){
                 $user = User::findOrFail($id);
@@ -54,8 +53,6 @@ class AddPermissionController extends Controller
                 
                 return redirect::intended('/user/user-list')->with('success', 'Permission updated successfully');
             } else return redirect::intended('')->with('error', 'You dont have permission to manage users previledge');
-
-        } else return redirect::intended('login')->with('error', 'You do not have permission to access');
     }
 
 }

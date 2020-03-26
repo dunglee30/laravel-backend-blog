@@ -43,6 +43,7 @@ class CreatePostController extends Controller
             'image' => $image,
             'url'=>$url,
             'user_id' => $user->id,
+            'views' => 0,
         ]); 
         Cache::flush();
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');

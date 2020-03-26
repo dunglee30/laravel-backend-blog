@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
-    
-    public function dashboard(){
-        if(Auth::check()) return view('dashboard');
-        else return redirect::intended('login')->withError('You do not have permission to access');
+    public function __invoke(){
+        return view('dashboard');
     }
 
 }

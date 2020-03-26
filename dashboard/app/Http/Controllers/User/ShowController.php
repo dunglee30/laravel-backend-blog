@@ -16,6 +16,7 @@ class ShowController extends Controller
 {
     //
     public function showRegister(){
+        if(Auth::check()) return redirect()->intended('');
         return view('auth.register');
     }
 
@@ -25,23 +26,17 @@ class ShowController extends Controller
     }
 
     public function showList(){
-        if(Auth::check()) {
             $users = User::all();
             return view('list.user-list')->with('users', $users);
-        }
-        else return redirect::intended('login')->withError('You do not have permission to access');
     }
 
     public function showPermissionPage($id){
-        if(Auth::check()) {
             $authUser = Auth::user();
             if($authUser->can('manage')){
                 $user = User::findOrFail($id);
                 $permissions = $user->permissions;
                 return view('list.user-permission', ['user'=>$user, 'permissions'=>$permissions]);
             } else return redirect::intended('')->with('error', 'You dont have permission to manage users previledge');
-        }
-        else return redirect::intended('login')->withError('You do not have permission to access');
     }
     
 }
