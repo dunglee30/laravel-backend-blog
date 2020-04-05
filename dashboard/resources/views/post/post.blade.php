@@ -14,6 +14,7 @@
             <a href="{{ url('new-post') }}">
                 <button type="button" class="btn btn-primary btn-sm"> Create Post </button>
             </a>
+            
         </h1>
 
         @if(Session::has('success'))
@@ -41,6 +42,7 @@
                 <th>Author</th>
                 <th>Date Created</th>
                 <th>View more</th>
+                <th>Delete</th>
             </thread>
 
             <tbody>
@@ -54,6 +56,10 @@
                             <td>{{ Carbon\Carbon::parse($post->created_at)->format('d-m-Y') }} </td>
                             <td>
                                 <a href="{{ url('/post-detail',[$post->url, $post->id]) }}"> View more</a>
+                            <td>
+                                <a onclick="return confirm('Are you sure?')" href="{{ url('delete-post', [$post->id]) }}">
+                                    <button type="button" class="btn btn-primary btn-sm"> Delete Post </button>
+                                </a>
                         </tr>
                     @endforeach
                 @else 
@@ -61,6 +67,9 @@
                 @endif
             </tbody>
         </table><Br>
+        <a onclick="return confirm('Are you sure?')" href="{{ url('postsDeleteAll') }}">
+            <button type="button" class="btn btn-primary btn-sm">Delete All Selected</button>
+        </a>
     </main>
 </div>
 @endsection

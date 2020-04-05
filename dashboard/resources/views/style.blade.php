@@ -41,6 +41,7 @@
             margin: 10px;
             max-width: 100%;
             overflow-wrap: break-word;
+            font-size: 18px;;
         }
         #form-area {
             max-width: 90%;
@@ -62,4 +63,16 @@
             padding: 5px;
         }
 
+        #news-area{
+            max-width: 1300px;
+            padding-right: 30px;
+        }
+
+        .related-news-area{
+            margin-top: 70px;
+        }
+
+        .post-main{
+            margin-top: 50px;
+        }
 </style>

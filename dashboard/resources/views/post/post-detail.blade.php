@@ -21,7 +21,7 @@
                 <a href="{{ url('edit-post', $post->id) }}">
                     <button type="button" class="btn btn-primary btn-sm"> Edit Post </button>
                 </a><br>
-                <a href="{{ url('delete-post', [$post->id]) }}">
+                <a onclick="return confirm('Are you sure?')" href="{{ url('delete-post', [$post->id]) }}">
                     <button type="button" class="btn btn-primary btn-sm"> Delete Post </button>
                 </a>
             </h1>

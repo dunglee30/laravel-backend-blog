@@ -24,7 +24,7 @@ class DeletePostController extends Controller
             Storage::disk('images')->delete($post->image);
             $post->delete();
             Cache::flush();
-            return redirect::intended('')->with('success', 'Post deleted successfully');
-        } else return redirect::intended('')->with('error', 'You dont have permission to delete this post.');
+            return redirect::intended('/admin')->with('success', 'Post deleted successfully');
+        } else return redirect::intended('/admin')->with('error', 'You dont have permission to delete this post.');
     }
 }

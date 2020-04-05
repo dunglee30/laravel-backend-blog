@@ -24,14 +24,14 @@ class EditPostController extends Controller
             $post->title = $request->title;
             $post->content = $request->content;
 
-            if($request->has('url')) $url = Str::slug($request->url);
+            if($request->url!="") $url = Str::slug($request->url);
                 else $url=Str::slug($request->title);
             
             $post->url = $url;
             $post->save();
             Cache::flush();
-        } else return redirect::intended('')->with('error', 'You dont have permission to edit this post.');
+        } else return redirect::intended('/admin')->with('error', 'You dont have permission to edit this post.');
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');
-        return redirect::intended('')->with('success', 'Post edited successfully');
+        return redirect::intended('/admin')->with('success', 'Post edited successfully');
     }
 }

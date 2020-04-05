@@ -36,7 +36,7 @@ class ShowController extends Controller
                 $user = User::findOrFail($id);
                 $permissions = $user->permissions;
                 return view('list.user-permission', ['user'=>$user, 'permissions'=>$permissions]);
-            } else return redirect::intended('')->with('error', 'You dont have permission to manage users previledge');
+            } else return redirect::intended('/admin')->with('error', 'You dont have permission to manage users previledge');
     }
     
 }

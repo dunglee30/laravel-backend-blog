@@ -29,7 +29,7 @@ class LoginController extends Controller
 
         if($user->email_verified == 1){
             if(Auth::attempt($credential)){
-                return redirect()->intended('');
+                return redirect()->intended('/admin');
             } 
         }
         return back()->with('error', 'Email or password are invalid');

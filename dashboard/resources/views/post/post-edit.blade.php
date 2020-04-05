@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                     <label for="url">URL</label>
-                    <input type="text" class="form-control" id="id_url" name="url" placeholder="Enter URL(Optional)" value="{{ old('url') }}">
+                    <input type="text" class="form-control" id="id_url" name="url" placeholder="Enter URL(Optional)" value="{{ $post->url }}">
                 </div>
 
                 <div class="form-group">

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 
+use Carbon\Carbon;
 use App\User;
 use App\Post;
 
@@ -35,8 +36,8 @@ class CreatePostController extends Controller
             // echo $path;
         }
         // echo $image;
-        if($request->has('url')) $url = Str::slug($request->url);
-        else $url=Str::slug($request->title);
+        if($request->url!="") $url = Str::slug($request->url);
+            else $url=Str::slug($request->title);
         $post = Post::create([
             'title' =>$request->title,
             'content' => $request->content,
@@ -47,6 +48,6 @@ class CreatePostController extends Controller
         ]); 
         Cache::flush();
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');
-        return redirect()->intended('')->with('success', 'Post created successfully');
+        return redirect()->intended('/admin')->with('success', 'Post created successfully');
     }
 }

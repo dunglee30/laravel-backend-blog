@@ -20,7 +20,7 @@ class ShowController extends Controller
     public function indexOwn() {
         
             $user=Auth::user();
-            $posts=Cache::remember('post.'.$user->id, 60*10, function() use ($user){
+            $posts=Cache::remember('postUser.'.$user->id, 60*10, function() use ($user){
                 return $user->posts()->where('user_id', $user->id)->get();
             });
             return view('post.post')->with('posts', $posts);
@@ -38,10 +38,14 @@ class ShowController extends Controller
     }
 
     public function indexPost($url, $id){
-            $user = Auth::user();
-            $post = Cache::remember('post.'.$id, 60*5, function() use($user, $id){
+            $user = Auth::user(); 
+            // echo $user->name;
+            // echo $user->id;
+            // $post = Post::findorFail($id);
+            $post = Cache::remember('postID.'.$id, 60*5, function() use($id){
                 return Post::findorFail($id);
             });
+
             // echo $post->title;
             if(($post->user_id==$user->id)
                 ||$user->can('view')

@@ -25,7 +25,7 @@ class DeletePermissionController extends Controller
                 // echo $slug;
                 // echo $user->name;
                 $user->permissions()->detach($permission);
-                return redirect::intended('user\user-list')->with('success', 'Permission update successfully');
-            } else return redirect::intended('user\user-list')->with('error', 'Permission denied since you are not manager');
+                return redirect::intended('user/user-list')->with('success', 'Permission update successfully');
+            } else return redirect::intended('user/user-list')->with('error', 'Permission denied since you are not manager');
     }
 }

@@ -51,8 +51,8 @@ class AddPermissionController extends Controller
                     
                 }
                 
-                return redirect::intended('/user/user-list')->with('success', 'Permission updated successfully');
-            } else return redirect::intended('')->with('error', 'You dont have permission to manage users previledge');
+                return redirect::intended('user/user-list')->with('success', 'Permission updated successfully');
+            } else return redirect::intended('/admin')->with('error', 'You dont have permission to manage users previledge');
     }
 
 }
