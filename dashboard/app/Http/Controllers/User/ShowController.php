@@ -38,5 +38,14 @@ class ShowController extends Controller
                 return view('list.user-permission', ['user'=>$user, 'permissions'=>$permissions]);
             } else return redirect::intended('/admin')->with('error', 'You dont have permission to manage users previledge');
     }
+
+    public function showRolePage($id){
+        $authUser = Auth::user();
+        if($authUser->can('manage')||$authUser->hasRole('manager')){
+            $user = User::findOrFail($id);
+            $roles = $user->roles;
+            return view('list.user-role', ['user'=>$user, 'roles'=>$roles]);
+        } else return redirect::intended('/admin')->with('error', 'You dont have permission to manage users previledge');
+    }
     
 }

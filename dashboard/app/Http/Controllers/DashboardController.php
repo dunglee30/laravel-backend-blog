@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $posts=Cache::remember('news.all', 60*10, function() {
             return Post::all()->sortBy('created_at');
         });
-        return view('news.news_list')->with('posts', $posts);
+        return view('news.hot_list')->with('posts', $posts);
     }
 
     public function indexNews($url, $id) {

@@ -24,6 +24,11 @@
                     {!! $errors->first('title', '<small class="text-danger">:message</small>') !!}
                 </div>
                 <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" class="form-control" id="id_category" name="category" placeholder="Enter Category(Optional)" value="{{ old('category') }}">
+                    {!! $errors->first('title', '<small class="text-danger">:message</small>') !!}
+                </div>
+                <div class="form-group">
                     <label for="image">Upload Image</label>
                     <input type="file" name="image" id="image">
                 </div>

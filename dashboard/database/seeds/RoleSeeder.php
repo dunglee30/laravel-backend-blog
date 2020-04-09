@@ -13,5 +13,19 @@ class RoleSeeder extends Seeder
     public function run()
     {
         //
+        $manager = new Role;
+        $manager->name = 'manager';
+        $manager->slug = 'manager';
+        $manager->save();
+        
+        $editor = new Role;
+        $editor->name = 'editor';
+        $editor->slug = 'editor';
+        $editor->save();
+
+        $deleter = new Role;
+        $deleter->name = 'deleter';
+        $deleter->slug = 'deleter';
+        $deleter->save();
     }
 }

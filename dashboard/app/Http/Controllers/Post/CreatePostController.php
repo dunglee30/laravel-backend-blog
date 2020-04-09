@@ -38,8 +38,13 @@ class CreatePostController extends Controller
         // echo $image;
         if($request->url!="") $url = Str::slug($request->url);
             else $url=Str::slug($request->title);
+
+        if($request->category!="") $category = $request->category;
+            else $category = null;
+            
         $post = Post::create([
             'title' =>$request->title,
+            'category'=>$category,
             'content' => $request->content,
             'image' => $image,
             'url'=>$url,

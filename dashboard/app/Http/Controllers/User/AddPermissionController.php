@@ -48,7 +48,6 @@ class AddPermissionController extends Controller
                         $manageP = Permission::where('slug', 'manage')->first();
                         $user->permissions()->attach($manageP);
                     } 
-                    
                 }
                 
                 return redirect::intended('user/user-list')->with('success', 'Permission updated successfully');

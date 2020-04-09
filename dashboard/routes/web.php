@@ -12,12 +12,6 @@
 */
 Route::middleware(['prevent-back-history'])->group(function(){
         Auth::routes();
-        // front view 
-        Route::get('/', 'DashboardController@indexHome');
-        Route::get('news', 'DashboardController@indexNewsList');
-        Route::get('hot', 'DashboardController@indexHotList');
-        Route::get('news/{url}/{id}', 'DashboardController@indexNews');
-
         // 
         Route::get('/admin', 'DashboardController@indexDash')->middleware('user-auth');
         Route::get('/login', 'User\ShowController@showLogin');
@@ -33,9 +27,18 @@ Route::middleware(['prevent-back-history'])->group(function(){
 
         // Permission show controller
         Route::get('delete-permission/{slug}/{id}', 'User\DeletePermissionController')->middleware('user-auth');
+        Route::get('delete-role/{slug}/{id}', 'User\DeleteRoleController')->middleware('user-auth');
         Route::get('user/user-list', 'User\ShowController@showList')->middleware('user-auth');
         Route::get('user-permission/{id}', 'User\ShowController@showPermissionPage')->middleware('user-auth');
+        Route::get('user-role/{id}', 'User\ShowController@showRolePage')->middleware('user-auth');
     });
+// front view 
+Route::get('/', 'DashboardController@indexHome');
+Route::get('news', 'DashboardController@indexNewsList');        
+Route::get('hot', 'DashboardController@indexHotList');
+Route::get('news/{url}/{id}', 'DashboardController@indexNews');
+Route::get('hot/{url}/{id}', 'DashboardController@indexNews');
+
     
     // Login, register
 Route::get('/register', 'User\ShowController@showRegister');
@@ -49,5 +52,6 @@ Route::post('edit-post/edit/{id}', 'Post\EditPostController');
 
 // Permission controller
 Route::post('add-permission/{id}', 'User\AddPermissionController')->middleware('user-auth');
+Route::post('add-role/{id}', 'User\AddRoleController')->middleware('user-auth');
 
 Route::get('/logout', 'User\LogoutController');

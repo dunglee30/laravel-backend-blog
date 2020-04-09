@@ -36,6 +36,7 @@
                 <th>Email</th>
                 <th>Date Created</th>
                 <th>Permission</th>
+                <th>Role</th>
             </thread>
 
             <tbody>
@@ -49,6 +50,10 @@
                             <td>{{ Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }} </td>
                             <td>
                                 <a href="{{ url('/user-permission',$user->id) }}">
+                                    <button type="button" class="btn btn-primary btn-sm">Manage</button>
+                                </a>
+                            <td>
+                                <a href="{{ url('/user-role',$user->id) }}">
                                     <button type="button" class="btn btn-primary btn-sm">Manage</button>
                                 </a>
                         </tr>
