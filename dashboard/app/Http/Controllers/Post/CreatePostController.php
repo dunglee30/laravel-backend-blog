@@ -30,21 +30,22 @@ class CreatePostController extends Controller
         $image = null;
         if($file = $request->file('image')){
             $filename = time().'.'.$file->getClientOriginalExtension();
-            // $request->image->move(public_path('images'), $filename);
             $path = $file->storeAs('', $filename, 'images');
             $image = $filename;
-            // echo $path;
         }
-        // echo $image;
         if($request->url!="") $url = Str::slug($request->url);
             else $url=Str::slug($request->title);
 
         if($request->category!="") $category = $request->category;
             else $category = null;
-            
+        
+        if($request->date!="" && $request->time!="") $timestamp = Carbon::create($request->date . ' ' . $request->time);
+            else $timestamp = Carbon::create(2010,1,1,0,0,0);
+
         $post = Post::create([
             'title' =>$request->title,
             'category'=>$category,
+            'public_at'=>$timestamp,
             'content' => $request->content,
             'image' => $image,
             'url'=>$url,

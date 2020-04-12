@@ -66,10 +66,7 @@
                     <p class="text-center text-primary">No Posts created Yet!</p>
                 @endif
             </tbody>
-        </table><Br>
-        <a onclick="return confirm('Are you sure?')" href="{{ url('postsDeleteAll') }}">
-            <button type="button" class="btn btn-primary btn-sm">Delete All Selected</button>
-        </a>
+        </table>
     </main>
 </div>
 @endsection

@@ -25,6 +25,15 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="date">Public date</label>
+                    <p> {{$post->public_at}} </p>
+                    <input type="date" class="form-control" id="datetimepicker" name="date" placeholder="Public time(Optional0)" value="">
+                    <label for="time">Public time</label>
+                    <input type="time" class="form-control" id="timepicker" name="time" placeholder="Public time(Optional0)" value="">
+                    {!! $errors->first('title', '<small class="text-danger">:message</small>') !!}
+                </div>
+
+                <div class="form-group">
                     <label for="content"> Content </label>
                     <textarea class="form-control" id="id_content" rows="5" name="content" placeholder="Enter content">{{$post->content}}</textarea>
                     {!! $errors->first('content', '<small class="text-danger">:message</small>') !!}

@@ -25,15 +25,15 @@ class DashboardController extends Controller
     }
 
     public function indexNewsList() {
-        $posts=Cache::remember('news.all', 60*10, function() {
-            return Post::all()->sortBy('views');
+        $posts=Cache::remember('newsL.all', 60*10, function() {
+            return Post::public()->get();
         });
         return view('news.news_list')->with('posts', $posts);
     }
 
     public function indexHotList() {
-        $posts=Cache::remember('news.all', 60*10, function() {
-            return Post::all()->sortBy('created_at');
+        $posts=Cache::remember('newsH.all', 60*10, function() {
+            return Post::public()->get();
         });
         return view('news.hot_list')->with('posts', $posts);
     }

@@ -29,6 +29,13 @@
                     {!! $errors->first('title', '<small class="text-danger">:message</small>') !!}
                 </div>
                 <div class="form-group">
+                    <label for="date">Public date</label>
+                    <input type="date" class="form-control" id="datetimepicker" name="date" placeholder="Public time(Optional0)" value="">
+                    <label for="time">Public time</label>
+                    <input type="time" class="form-control" id="timepicker" name="time" placeholder="Public time(Optional0)" value="">
+                    {!! $errors->first('title', '<small class="text-danger">:message</small>') !!}
+                </div>
+                <div class="form-group">
                     <label for="image">Upload Image</label>
                     <input type="file" name="image" id="image">
                 </div>

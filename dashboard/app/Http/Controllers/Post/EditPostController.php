@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 
+use Carbon\Carbon;
+
 class EditPostController extends Controller
 {
     //
@@ -26,6 +28,14 @@ class EditPostController extends Controller
 
             if($request->url!="") $url = Str::slug($request->url);
                 else $url=Str::slug($request->title);
+
+            if($request->date!="" && $request->time!="") {
+                $timestamp = Carbon::create($request->date . ' ' . $request->time);
+                if($timestamp>Carbon::now()) $post->public_at = $timestamp;
+            } else{
+                $timestamp = Carbon::create(2010, 1, 1, 0, 0, 0);
+                $post->public_at = $timestamp;
+            }
             
             $post->url = $url;
             $post->save();

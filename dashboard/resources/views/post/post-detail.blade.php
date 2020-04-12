@@ -13,6 +13,7 @@
             <h1 class="title-area"> {{ $post->title}} </h1>
             <h5 class="author-name-area"> Author: {{ $post->user->name }} </h5>
             <h5 class="author-name-area"> Views: {{ $post->views }} </h5>
+            <h5 class="author-name-area"> Public_at: {{ $post->public_at }} </h5>
             <h1 id = "ED-area">
                 <style> {
                     
