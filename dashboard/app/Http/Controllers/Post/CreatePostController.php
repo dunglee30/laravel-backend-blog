@@ -33,14 +33,14 @@ class CreatePostController extends Controller
             $path = $file->storeAs('', $filename, 'images');
             $image = $filename;
         }
-        if($request->url!="") $url = Str::slug($request->url);
-            else $url=Str::slug($request->title);
+        $url = Str::slug($request->url);
+        if($url=="") $url=Str::slug($request->title);
 
         if($request->category!="") $category = $request->category;
             else $category = null;
         
         if($request->date!="" && $request->time!="") $timestamp = Carbon::create($request->date . ' ' . $request->time);
-            else $timestamp = Carbon::create(2010,1,1,0,0,0);
+            else $timestamp = Carbon::now();
 
         $post = Post::create([
             'title' =>$request->title,
@@ -54,6 +54,6 @@ class CreatePostController extends Controller
         ]); 
         Cache::flush();
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');
-        return redirect()->intended('/admin')->with('success', 'Post created successfully');
+        return redirect()->intended('/user')->with('success', 'Post created successfully');
     }
 }

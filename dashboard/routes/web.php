@@ -13,7 +13,7 @@
 Route::middleware(['prevent-back-history'])->group(function(){
         Auth::routes();
         // 
-        Route::get('/admin', 'DashboardController@indexDash')->middleware('user-auth');
+        Route::get('/user', 'DashboardController@indexDash')->middleware('user-auth');
         Route::get('/login', 'User\ShowController@showLogin');
                 
 
@@ -22,7 +22,7 @@ Route::middleware(['prevent-back-history'])->group(function(){
         Route::get('new-post', 'Post\ShowController@indexForm')->middleware('user-auth');
         Route::get('user/all-posts', 'Post\ShowController@indexAll')->middleware('user-auth');
         Route::get('post-detail/{url}/{id}', 'Post\ShowController@indexPost')->middleware('user-auth');
-        Route::get('edit-post/{id}', 'Post\ShowEdit')->middleware('user-auth');
+        Route::get('edit-post/{id}', 'Post\ShowController@indexEditForm')->middleware('user-auth');
         Route::get('delete-post/{id}', 'Post\DeletePostController');
 
         // Permission show controller
@@ -31,7 +31,15 @@ Route::middleware(['prevent-back-history'])->group(function(){
         Route::get('user/user-list', 'User\ShowController@showList')->middleware('user-auth');
         Route::get('user-permission/{id}', 'User\ShowController@showPermissionPage')->middleware('user-auth');
         Route::get('user-role/{id}', 'User\ShowController@showRolePage')->middleware('user-auth');
+
+        // Cache Config
+        Route::get('/user/cache-config', 'CacheController@indexCachePage')->middleware('user-auth');
+        Route::get('user/delete-cache/{key}', 'CacheController@deleteCacheKey')->middleware('user-auth');
+        Route::post('/user/config-server', 'CacheController@configCacheServer');
     });
+
+// Cache config server
+
 // front view 
 Route::get('/', 'DashboardController@indexHome');
 Route::get('news', 'DashboardController@indexNewsList');        
@@ -40,7 +48,7 @@ Route::get('news/{url}/{id}', 'DashboardController@indexNews');
 Route::get('hot/{url}/{id}', 'DashboardController@indexNews');
 
     
-    // Login, register
+// Login, register
 Route::get('/register', 'User\ShowController@showRegister');
 Route::get('/verify/{token}', 'VerifyController@VerifyEmail')->name('verify');
 Route::post('user-store', 'User\RegisterController');

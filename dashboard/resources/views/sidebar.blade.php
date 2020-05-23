@@ -15,5 +15,10 @@
                     <a class="nav-link active" href="{{ url('user/user-list') }}">{{ __('Users') }}</a>
                 </li>
             </ul>
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url('user/cache-config') }}">{{ __('Cache Config') }}</a>
+                </li>
+            </ul>
         </nav>
     </div>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class LoginController extends Controller
 {
@@ -27,10 +28,13 @@ class LoginController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if($user->email_verified == 1){
-            if(Auth::attempt($credential)){
-                return redirect()->intended('/admin');
-            } 
+        if($user!=null){
+            if($user->email_verified == 1){
+                if(Auth::attempt($credential)){
+                    Cache::flush();
+                    return redirect()->intended('/user');
+                } 
+            }
         }
         return back()->with('error', 'Email or password are invalid');
     }

@@ -35,6 +35,7 @@ class RegisterController extends Controller
         );
         $user = User::create($userArray);
 
+        // Sending email to user
         \Mail::to($user->email)->send(new VerifyEmail($user));
 
         session()->flash('message', 'Please check your registered email to activate your account');

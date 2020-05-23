@@ -26,22 +26,23 @@ class EditPostController extends Controller
             $post->title = $request->title;
             $post->content = $request->content;
 
-            if($request->url!="") $url = Str::slug($request->url);
-                else $url=Str::slug($request->title);
+            $url = Str::slug($request->url);
+            if($url=="") $url=Str::slug($request->title);
 
             if($request->date!="" && $request->time!="") {
                 $timestamp = Carbon::create($request->date . ' ' . $request->time);
                 if($timestamp>Carbon::now()) $post->public_at = $timestamp;
             } else{
-                $timestamp = Carbon::create(2010, 1, 1, 0, 0, 0);
+                $timestamp = $post->created_at;
                 $post->public_at = $timestamp;
             }
             
             $post->url = $url;
             $post->save();
-            Cache::flush();
-        } else return redirect::intended('/admin')->with('error', 'You dont have permission to edit this post.');
+            Cache::forget('postID'.$id);
+            Cache::forget('newsID'.$id);
+        } else return redirect::intended('/user')->with('error', 'You dont have permission to edit this post.');
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');
-        return redirect::intended('/admin')->with('success', 'Post edited successfully');
+        return redirect::intended('/user')->with('success', 'Post edited successfully');
     }
 }

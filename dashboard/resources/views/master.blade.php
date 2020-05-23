@@ -32,7 +32,7 @@
                         <li class="nav-link active"><a href="{{ url('/') }}">Home</a></li>
                         <li><a class = "nav-link acive" href="{{ url('/hot') }}">Hot</a></li>
                         <li><a class="nav-link active" href="{{ url('/news') }}">News</a></li>
-                        <li><a class="nav-link active" href="{{ url('/admin') }}">For user</a></li>
+                        <li><a class="nav-link active" href="{{ url('/user') }}">For user</a></li>
                         </ul>
                     </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

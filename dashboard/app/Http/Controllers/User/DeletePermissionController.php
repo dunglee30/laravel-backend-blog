@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class DeletePermissionController extends Controller
 {
@@ -25,6 +26,7 @@ class DeletePermissionController extends Controller
                 // echo $slug;
                 // echo $user->name;
                 $user->permissions()->detach($permission);
+                Cache::flush();
                 return redirect::intended('user/user-list')->with('success', 'Permission update successfully');
             } else return redirect::intended('user/user-list')->with('error', 'Permission denied since you are not manager');
     }

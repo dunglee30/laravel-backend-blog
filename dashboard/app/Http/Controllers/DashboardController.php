@@ -17,25 +17,43 @@ class DashboardController extends Controller
 {
     // Dashboard controller
     public function indexDash(){
-        return view('dashboard');
+        $url = url()->current();
+        $dashHtml = Cache::remember('dashHtml', 60*20, function(){
+            return view('dashboard')->render();
+        });
+        return response($dashHtml);
     }
 
     public function indexHome() {
-        return view('home');
+        $url = url()->current();
+        $homeHtml = Cache::remember('homeHtml', 60*5, function() {
+            return view('home')->render();
+        });
+        // $homeHtml = view('home')->render();
+        
+        return response($homeHtml);
     }
 
     public function indexNewsList() {
         $posts=Cache::remember('newsL.all', 60*10, function() {
             return Post::public()->get();
         });
-        return view('news.news_list')->with('posts', $posts);
+        $url = url()->current();
+        $newsListHtml = Cache::remember('newsListHtml', 60*10, function() use($posts) {
+            return view('news.news_list', ['posts'=>$posts])->render();
+        });
+        return response($newsListHtml);
     }
 
     public function indexHotList() {
         $posts=Cache::remember('newsH.all', 60*10, function() {
             return Post::public()->get();
         });
-        return view('news.hot_list')->with('posts', $posts);
+        $url = url()->current();
+        $hotListHtml = Cache::remember('hotListHtml', 60*10, function() use ($posts) {
+            return view('news.hot_list', ['posts'=>$posts])->render();
+        });
+        return response($hotListHtml);
     }
 
     public function indexNews($url, $id) {
@@ -45,9 +63,13 @@ class DashboardController extends Controller
             $item->save();
             return $item;
         });
-
         $postList = Post::limit(5)->get()->except($id);
-        return view('news.news_detail', ['post'=>$post, 'list'=>$postList]);
+
+        $url = url()->current();
+        $newsDetailHtml = Cache::remember('newsDetailHtml'.$id, 60*10, function() use ($post, $postList) {
+            return view('news.news_detail', ['post'=>$post, 'list'=>$postList])->render();
+        });
+        return response($newsDetailHtml);
     }
 
 }

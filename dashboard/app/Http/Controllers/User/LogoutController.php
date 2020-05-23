@@ -18,6 +18,7 @@ class LogoutController extends Controller
     //
     public function __invoke(Request $request ) {
         Artisan::call('cache:clear');
+        Artisan::call('config:clear');
         $request->session()->flush();
         Auth::logout();
         return redirect::intended('');

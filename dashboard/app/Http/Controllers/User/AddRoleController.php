@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class AddRoleController extends Controller
 {
@@ -31,10 +32,11 @@ class AddRoleController extends Controller
                 if($request->has('deleter')) {
                     if($user->roles()->where('slug', 'deleter')->first()==null)
                     {
-                        $deleterR = Permission::where('slug', 'deleter')->first();
+                        $deleterR = Role::where('slug', 'deleter')->first();
                         $user->roles()->attach($deleterR);
                     }
                 }
+                Cache::flush();
                 return redirect::intended('user/user-list')->with('success', 'Permission updated successfully');
             } else return redirect::intended('/admin')->with('error', 'You dont have permission to manage users previledge');
     }

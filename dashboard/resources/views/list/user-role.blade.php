@@ -63,7 +63,7 @@
                 <input type="checkbox" id="role1" name="editor" value="editor">
                 <label for="role1"> Editor </label><br>
                 <input type="checkbox" id="role2" name="deleter" value="deleter">
-                <label for="role2"> Edit </label><br>
+                <label for="role2"> Deleter </label><br>
 
                 <button type="submit" class="btn btn-primary"> Update Change </button>
                 <!-- <input type="submit" id="submitButton" th:value="Update Change" name="submit" disabled="disabled" placeholder="Update Change"/> -->
