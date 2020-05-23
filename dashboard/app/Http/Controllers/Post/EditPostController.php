@@ -39,10 +39,9 @@ class EditPostController extends Controller
             
             $post->url = $url;
             $post->save();
-            Cache::forget('postID'.$id);
-            Cache::forget('newsID'.$id);
+            Cache::flush();
         } else return redirect::intended('/user')->with('error', 'You dont have permission to edit this post.');
         if(is_null($post)) return back()->with('error', 'Something went wrong! Please try again later');
-        return redirect::intended('/user')->with('success', 'Post edited successfully');
+        return redirect::intended('/user/posts')->with('success', 'Post edited successfully');
     }
 }

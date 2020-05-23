@@ -69,7 +69,7 @@ class ShowController extends Controller
                     });
                     return response($postDetailHtml);
                 }
-            else return back()->with('error', 'You dont have permission to view this post.');
+            else return redirect::intended('/user')->with('error', 'You dont have permission to view this post.');
     }
 
     public function indexEditForm($id){
@@ -86,6 +86,8 @@ class ShowController extends Controller
                     });
                     return response($postEditHtml);
                 }
-            else return redirect::back()->with('error', 'You dont have permission to edit this post.');
+            else {
+                return redirect::intended('/user')->with('error', 'You dont have permission to edit this post.');
+            }
     }
 }

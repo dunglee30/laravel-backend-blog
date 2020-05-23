@@ -18,9 +18,7 @@ class DashboardController extends Controller
     // Dashboard controller
     public function indexDash(){
         $url = url()->current();
-        $dashHtml = Cache::remember('dashHtml', 60*20, function(){
-            return view('dashboard')->render();
-        });
+        $dashHtml = view('dashboard')->render();
         return response($dashHtml);
     }
 
